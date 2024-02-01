@@ -1,0 +1,32 @@
+﻿@model IList<Instructor>
+@{
+    ViewData["Title"] = "Instructors - Course Registration";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Instructors</h1>
+</div>
+
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Course</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Email</td>
+                <td>@item.Course?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

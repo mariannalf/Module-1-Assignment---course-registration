@@ -1,0 +1,72 @@
+﻿@model IList<Course>
+@{
+    ViewData["Title"] = "Courses - Course Registration";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Courses</h1>
+</div>
+
+<table id="courses-table" class="table table-stripped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Course Number</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-bs-toggle="modal" data-bs-target="#modal_@item.Id">
+                <th scope="row">@item.Id</th>
+                <td>@item.CourseNumber</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="modal_@item.Id" tabindex="-1" role="dialog" aria-labelledby="label_@item.Id"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="label_@item.Id">Students in @item.Name class</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in Student.Students)
+                            {
+                                if (s.EnrolledCourses.Contains(item))
+                                {
+                                    <tr>
+                                        <th scope="row">@s.Id</th>
+                                        <td>@s.FirstName</td>
+                                        <td>@s.LastName</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
